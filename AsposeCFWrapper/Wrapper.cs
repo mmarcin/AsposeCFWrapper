@@ -11,11 +11,50 @@ namespace Aspose.Words
 
     class AsposeCFWrapper
     {
-        string MyDir = "c:/projetcs/eProcurement/www_root/prototypes/";
+        public string TemplateDir;          // c:/projects/eProcurement/www_root/prototypes/         
+        public string TemplateName;         // Template.docx
 
+        public string OutputDir;            // c:/temp/
+        public string OutputDocumentName;   // OutputFile.docx
+
+        public string SelectString;         // SELECT * FROM pro_tProcurement
+        public string TableNameString;      // Procutements
+
+        public AsposeCFWrapper(string TemplateDir, string TemplateName, string OutputDir, string OutputDocumentName, string SelectString, string TableNameString)
+        {
+            this.TemplateDir = TemplateDir;
+            this.TemplateName = TemplateName;
+            this.OutputDir = OutputDir;
+            this.OutputDocumentName = OutputDocumentName;
+            this.SelectString = SelectString;
+            this.TableNameString = TableNameString;
+        }
+
+        public void ExecuteRegions()
+        {
+            Document doc = new Document(this.TemplateDir + this.TemplateName);                      // Create Aspose document object
+
+            DataTable TableWithData = GetDatabaseResults(this.SelectString, this.TableNameString);  // Get Data
+
+            doc.MailMerge.ExecuteWithRegions(TableWithData);                                        // Make MailMerge With regions
+
+            doc.Save(this.OutputDir + this.OutputDocumentName);                                     // Save the result
+        }
+
+        private static DataTable GetDatabaseResults(string SelectString, string TableNameString)
+        {
+            DataTable table = ExecuteDataTable(SelectString);
+            table.TableName = TableNameString ;
+            return table;
+        }
+
+
+        // ------------------------------------------------------------------------------------------------------------------------------------
+        // Toto je povodny priklad z Aspose. Ked to pobezi, tak to zmazeme
+        // ------------------------------------------------------------------------------------------------------------------------------------
         public void ExecuteWithRegionsDataTable()
         {
-            Document doc = new Document(MyDir + "MailMerge.ExecuteWithRegions.doc");
+            Document doc = new Document(TemplateDir + TemplateName);
 
             int orderId = 10444;
 
@@ -30,7 +69,7 @@ namespace Aspose.Words
             orderDetailsView.Sort = "ExtendedPrice DESC";
             doc.MailMerge.ExecuteWithRegions(orderDetailsView);
 
-            doc.Save(MyDir + "MailMerge.ExecuteWithRegionsDataTable Out.doc");
+            doc.Save(OutputDir + OutputDocumentName);
         }
 
         private static DataTable GetTestOrder(int orderId)
