@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Aspose.Words;
 
-namespace Aspose.Words
+namespace AsposeCF
 {
 
     public class Wrapper
@@ -26,6 +27,11 @@ namespace Aspose.Words
             this.OutputDir = OutputDir;
             this.OutputDocumentName = OutputDocumentName;
             doc = new Document(this.TemplateDir + this.TemplateName);  // Create Aspose document object
+        }
+
+        public void Execute(string[] names, object[] values)
+        {
+            doc.MailMerge.Execute(names, values);
         }
 
         public void ExecuteRegions(string SelectString, string TableName)
@@ -50,7 +56,7 @@ namespace Aspose.Words
         private static DataTable ExecuteDataTable(string commandText)
         {
             // Open the database connection.
-            string connString = "Server=local.ebiz.sk;Database=eProcurement;User Id=sa;Password=Lomtec2000;";
+            string connString = "Server=127.0.0.1;Database=eProcurement;User Id=sa;Password=Lomtec2000;";
             SqlConnection conn = new SqlConnection (connString);
             conn.Open();
 

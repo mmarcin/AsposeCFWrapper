@@ -57,9 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AsposeCFWrapper\AsposeCFWrapper.csproj">
+    <ProjectReference Include="..\AsposeCFWrapper\AsposeCF.csproj">
       <Project>{1db920ea-e364-400c-b419-e4b1ee786710}</Project>
-      <Name>AsposeCFWrapper</Name>
+      <Name>AsposeCF</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
