@@ -56,7 +56,7 @@ namespace AsposeCF
         private static DataTable ExecuteDataTable(string commandText)
         {
             // Open the database connection.
-            string connString = "Server=127.0.0.1;Database=eProcurement;User Id=sa;Password=Lomtec2000;";
+            string connString = "Server=local.ebiz.sk;Database=eProcurement;User Id=sa;Password=Lomtec2000;";
             SqlConnection conn = new SqlConnection (connString);
             conn.Open();
 
