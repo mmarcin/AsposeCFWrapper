@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Aspose.Words;
+using System.Configuration;
 
 namespace AsposeCF
 {
@@ -26,6 +27,9 @@ namespace AsposeCF
             this.TemplateName = TemplateName;
             this.OutputDir = OutputDir;
             this.OutputDocumentName = OutputDocumentName;
+
+            string version = ConfigurationManager.AppSettings["VersionNumber"];
+
             doc = new Document(this.TemplateDir + this.TemplateName);  // Create Aspose document object
         }
 
@@ -56,7 +60,9 @@ namespace AsposeCF
         private static DataTable ExecuteDataTable(string commandText)
         {
             // Open the database connection.
-            string connString = "Server=local.ebiz.sk;Database=eProcurement;User Id=sa;Password=Lomtec2000;";
+            // string connString = "Server=local.ebiz.sk;Database=eProcurement;User Id=sa;Password=Lomtec2000;";
+            string connString = ConfigurationManager.ConnectionStrings["AsposeCFConnectionString"].ConnectionString;
+
             SqlConnection conn = new SqlConnection (connString);
             conn.Open();
 
